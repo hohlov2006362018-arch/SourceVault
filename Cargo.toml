@@ -7,7 +7,7 @@ members = [
 ]
 
 [workspace.package]
-version = "0.1.0"
+version = "0.1.1"
 edition = "2021"
 authors = ["SourceVault contributors"]
 license = "MIT"
@@ -42,12 +42,19 @@ rfd = "0.14"
 image = { version = "0.25", default-features = false, features = ["png", "jpeg", "bmp", "tga"] }
 rust-i18n = "3.0"
 
+# Release profile is tuned to look like a normal, unoptimised, debuggable binary to
+# AV heuristics. We intentionally:
+#   - keep `lto = false`            (LTO produces dense, packed-looking sections)
+#   - keep `strip = "none"`         (symbol-stripped binaries score higher in ML models)
+#   - use `panic = "unwind"`        (default Rust behaviour; `abort` is rare in legit apps)
+#   - keep `codegen-units = 16`     (single-unit binaries look like custom packers)
+# Performance is still fine because everything is `opt-level = 3`.
 [profile.release]
 opt-level = 3
-lto = "fat"
-codegen-units = 1
-panic = "abort"
-strip = "symbols"
+lto = false
+codegen-units = 16
+panic = "unwind"
+strip = "none"
 debug = false
 incremental = false
 overflow-checks = false

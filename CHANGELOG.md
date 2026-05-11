@@ -6,6 +6,25 @@ All notable changes to SourceVault are documented in this file. The format follo
 
 ## [Unreleased]
 
+## [0.1.1] — 2026-05-11
+
+### Changed
+
+- Release profile tuned to reduce machine-learning antivirus false positives:
+  - `lto = false`, `codegen-units = 16`, `strip = "none"`, `panic = "unwind"` (default Rust).
+  - All exe sections now look like normal `cargo build --release` output rather than a
+    densely packed, symbol-stripped artifact that ML models tend to flag.
+- Both binaries now ship with a complete Windows `VERSIONINFO` block
+  (`FileDescription`, `ProductName`, `OriginalFilename`, `InternalName`, `CompanyName`,
+  `LegalCopyright`, `FileVersion`, `ProductVersion`) and the application icon, so the
+  metadata heuristics that look for empty-fields binaries are satisfied.
+
+### Added
+
+- `crates/sourcevault-cli/build.rs`: embed VERSIONINFO + icon into `sourcevault.exe`.
+
+## [0.1.0] — 2026-05-11
+
 ### Added
 
 - Initial scaffolding of the Rust workspace (`sourcevault-core`, `sourcevault-cli`,
@@ -21,4 +40,6 @@ All notable changes to SourceVault are documented in this file. The format follo
   entry) and a clean uninstaller.
 - GitHub Actions pipelines for clippy, formatting, multi-arch builds and release packaging.
 
-[Unreleased]: https://github.com/hohlov2006362018-arch/SourceVault/compare/HEAD...HEAD
+[Unreleased]: https://github.com/hohlov2006362018-arch/SourceVault/compare/v0.1.1...HEAD
+[0.1.1]: https://github.com/hohlov2006362018-arch/SourceVault/releases/tag/v0.1.1
+[0.1.0]: https://github.com/hohlov2006362018-arch/SourceVault/releases/tag/v0.1.0
