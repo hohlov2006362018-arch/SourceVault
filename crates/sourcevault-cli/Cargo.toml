@@ -19,5 +19,8 @@ log.workspace = true
 env_logger.workspace = true
 indicatif.workspace = true
 
+[target.'cfg(windows)'.build-dependencies]
+winres = "0.1"
+
 [dev-dependencies]
 sourcevault-core = { path = "../sourcevault-core" }

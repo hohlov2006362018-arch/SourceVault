@@ -22,6 +22,9 @@ desktop.ini
 *.exp
 *.lib
 
+# Release staging
+/dist/
+
 # Local credentials & env
 .env
 .env.*

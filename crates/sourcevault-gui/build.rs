@@ -9,9 +9,20 @@ fn main() {
         if icon.exists() {
             res.set_icon(icon.to_str().unwrap());
         }
-        res.set("FileDescription", "SourceVault");
+        res.set(
+            "FileDescription",
+            "SourceVault \u{2014} Valve Source engine archiver",
+        );
         res.set("ProductName", "SourceVault");
-        res.set("LegalCopyright", "MIT licensed");
+        res.set("OriginalFilename", "SourceVault.exe");
+        res.set("InternalName", "SourceVault");
+        res.set("CompanyName", "SourceVault contributors");
+        res.set(
+            "LegalCopyright",
+            "Released under the MIT License. See LICENSE.",
+        );
+        res.set("FileVersion", env!("CARGO_PKG_VERSION"));
+        res.set("ProductVersion", env!("CARGO_PKG_VERSION"));
         res.set_manifest(
             r#"
 <assembly xmlns="urn:schemas-microsoft-com:asm.v1" manifestVersion="1.0">
