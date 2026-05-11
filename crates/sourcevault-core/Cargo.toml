@@ -1,0 +1,28 @@
+[package]
+name = "sourcevault-core"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "Format readers and writers for Valve Source engine archives (.vpk, .pak, .gcf, .sga, .wad, .xzp)."
+
+[lib]
+name = "sourcevault_core"
+path = "src/lib.rs"
+
+[dependencies]
+anyhow.workspace = true
+thiserror.workspace = true
+byteorder.workspace = true
+crc32fast.workspace = true
+flate2.workspace = true
+log.workspace = true
+serde = { workspace = true, optional = true }
+
+[features]
+default = ["serde"]
+serde = ["dep:serde"]
+
+[dev-dependencies]
+env_logger.workspace = true

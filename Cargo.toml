@@ -1,0 +1,58 @@
+[workspace]
+resolver = "2"
+members = [
+    "crates/sourcevault-core",
+    "crates/sourcevault-cli",
+    "crates/sourcevault-gui",
+]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+authors = ["SourceVault contributors"]
+license = "MIT"
+repository = "https://github.com/hohlov2006362018-arch/SourceVault"
+homepage = "https://github.com/hohlov2006362018-arch/SourceVault"
+description = "Free, native Rust archiver for Valve Source engine formats (.vpk, .pak, .gcf, .sga, .wad, .xzp)."
+readme = "README.md"
+keywords = ["valve", "source-engine", "archive", "vpk", "gcf"]
+categories = ["compression", "filesystem", "command-line-utilities"]
+rust-version = "1.74"
+
+[workspace.dependencies]
+anyhow = "1.0"
+thiserror = "1.0"
+byteorder = "1.5"
+crc32fast = "1.4"
+flate2 = "1.0"
+log = "0.4"
+env_logger = "0.11"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+clap = { version = "4.5", features = ["derive"] }
+indicatif = "0.17"
+rayon = "1.10"
+memmap2 = "0.9"
+
+# GUI deps
+eframe = { version = "0.27", default-features = false, features = ["default_fonts", "glow", "persistence"] }
+egui = "0.27"
+egui_extras = { version = "0.27", features = ["all_loaders"] }
+rfd = "0.14"
+image = { version = "0.25", default-features = false, features = ["png", "jpeg", "bmp", "tga"] }
+rust-i18n = "3.0"
+
+[profile.release]
+opt-level = 3
+lto = "fat"
+codegen-units = 1
+panic = "abort"
+strip = "symbols"
+debug = false
+incremental = false
+overflow-checks = false
+
+[profile.release-dbg]
+inherits = "release"
+debug = true
+strip = "none"

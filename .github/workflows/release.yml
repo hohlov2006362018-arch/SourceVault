@@ -1,0 +1,107 @@
+name: release
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Release tag (e.g. v0.1.0)'
+        required: true
+
+env:
+  CARGO_TERM_COLOR: always
+  RUSTFLAGS: -Dwarnings
+
+permissions:
+  contents: write
+
+jobs:
+  build-windows:
+    name: build ${{ matrix.target }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - target: x86_64-pc-windows-msvc
+            arch_label: x64
+          - target: i686-pc-windows-msvc
+            arch_label: x86
+          - target: aarch64-pc-windows-msvc
+            arch_label: arm64
+    runs-on: windows-latest
+    outputs:
+      version: ${{ steps.version.outputs.value }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: ${{ matrix.target }}
+      - uses: Swatinem/rust-cache@v2
+        with:
+          key: rel-${{ matrix.target }}
+      - id: version
+        run: |
+          $tag = "${{ github.ref_name }}"
+          if ($tag -eq "") { $tag = "${{ github.event.inputs.tag }}" }
+          $v = $tag -replace '^v',''
+          "value=$v" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
+        shell: pwsh
+      - run: cargo build --workspace --release --target ${{ matrix.target }}
+      - name: Stage payload
+        shell: pwsh
+        run: |
+          $v = "${{ steps.version.outputs.value }}"
+          $arch = "${{ matrix.arch_label }}"
+          $stage = "stage/SourceVault-$v-$arch"
+          New-Item -ItemType Directory -Path $stage | Out-Null
+          Copy-Item "target/${{ matrix.target }}/release/sourcevault-gui.exe" "$stage/SourceVault.exe"
+          Copy-Item "target/${{ matrix.target }}/release/sourcevault.exe" "$stage/sourcevault.exe"
+          Copy-Item "LICENSE" "$stage/LICENSE.txt"
+          Copy-Item "README.md" "$stage/README.txt"
+          Compress-Archive -Path "$stage/*" -DestinationPath "SourceVault-$v-portable-$arch.zip"
+      - name: Compile installer (x64 only)
+        if: matrix.arch_label == 'x64'
+        shell: pwsh
+        run: |
+          $v = "${{ steps.version.outputs.value }}"
+          $iscc = "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe"
+          if (-not (Test-Path $iscc)) { choco install innosetup --no-progress -y }
+          & $iscc /DAppVersion=$v /DPayloadDir=stage/SourceVault-$v-x64 installer/sourcevault.iss
+          Move-Item installer/output/*.exe "SourceVault-$v-setup-x64.exe"
+      - name: Generate checksums
+        shell: pwsh
+        run: |
+          Get-ChildItem -File -Filter "SourceVault-*" | ForEach-Object {
+            $hash = (Get-FileHash -Algorithm SHA256 $_.FullName).Hash.ToLower()
+            "$hash  $($_.Name)"
+          } | Out-File -Encoding ascii "SourceVault-${{ steps.version.outputs.value }}-${{ matrix.arch_label }}.sha256"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: release-${{ matrix.arch_label }}
+          path: |
+            SourceVault-*-portable-*.zip
+            SourceVault-*-setup-*.exe
+            SourceVault-*-*.sha256
+
+  publish:
+    name: publish release
+    needs: build-windows
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          path: dist
+      - name: Flatten artifacts
+        run: |
+          find dist -type f -exec mv {} . \;
+          ls -la SourceVault-*
+      - uses: softprops/action-gh-release@v2
+        with:
+          generate_release_notes: true
+          files: |
+            SourceVault-*-portable-*.zip
+            SourceVault-*-setup-*.exe
+            SourceVault-*-*.sha256

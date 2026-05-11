@@ -1,0 +1,29 @@
+# Build artifacts
+/target/
+**/target/
+**/*.rs.bk
+Cargo.lock.bak
+
+# IDE / editor noise
+.vscode/
+.idea/
+*.iml
+*.swp
+*.swo
+
+# OS noise
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Installer / signing artifacts
+/installer/output/
+*.pdb
+*.exp
+*.lib
+
+# Local credentials & env
+.env
+.env.*
+*.pem
+*.key

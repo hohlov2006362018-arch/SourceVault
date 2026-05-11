@@ -1,0 +1,29 @@
+[package]
+name = "sourcevault-gui"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "Graphical interface for SourceVault — a multilingual archiver for Valve Source engine formats."
+
+[[bin]]
+name = "sourcevault-gui"
+path = "src/main.rs"
+
+[dependencies]
+sourcevault-core = { path = "../sourcevault-core" }
+anyhow.workspace = true
+log.workspace = true
+env_logger.workspace = true
+eframe.workspace = true
+egui.workspace = true
+egui_extras.workspace = true
+rfd.workspace = true
+image.workspace = true
+rust-i18n.workspace = true
+serde = { workspace = true }
+serde_json.workspace = true
+
+[target.'cfg(windows)'.build-dependencies]
+winres = "0.1"

@@ -1,0 +1,23 @@
+[package]
+name = "sourcevault-cli"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "Command-line interface for SourceVault."
+
+[[bin]]
+name = "sourcevault"
+path = "src/main.rs"
+
+[dependencies]
+sourcevault-core = { path = "../sourcevault-core" }
+anyhow.workspace = true
+clap.workspace = true
+log.workspace = true
+env_logger.workspace = true
+indicatif.workspace = true
+
+[dev-dependencies]
+sourcevault-core = { path = "../sourcevault-core" }
