@@ -1,4 +1,4 @@
-# SourceVault
+# VPZip
 
 [🇬🇧 English](README.md) ·
 [🇷🇺 Русский](README.ru.md) ·
@@ -29,7 +29,7 @@
 - **独立動作。** Java/.NET 不要、ランタイム不要 —— 単一の静的リンク済み Windows EXE(~5 MiB)。
 - **全アーキテクチャ対応。** `x86_64`、`i686`(32-bit)、`aarch64` Windows 用ビルドを提供。
 - **シェル統合。** インストーラーが各拡張子に対するファイル関連付けを登録し、
-  右クリックメニューに *SourceVault で開く* を追加します。
+  右クリックメニューに *VPZip で開く* を追加します。
 - **多言語 UI** —— English、Русский、Українська、Deutsch、Français、Español、中文、日本語。
   *言語* メニューから即時切替。
 - **多言語リポジトリ** —— README、CHANGELOG、CONTRIBUTING を全て翻訳済み。
@@ -38,17 +38,17 @@
 ## インストール
 
 [最新リリース](https://github.com/hohlov2006362018-arch/SourceVault/releases/latest)から
-`SourceVault-x.y.z-setup.exe` をダウンロードしてください。
+`VPZip-x.y.z-setup.exe` をダウンロードしてください。
 
-ポータブル版:`SourceVault-x.y.z-portable-<arch>.zip` を展開して `SourceVault.exe` を起動。
+ポータブル版:`VPZip-x.y.z-portable-<arch>.zip` を展開して `VPZip.exe` を起動。
 
 ## コマンドライン例
 
 ```pwsh
-sourcevault info パス\to\pak01_dir.vpk
-sourcevault list -l パス\to\pak01_dir.vpk
-sourcevault extract -o C:\extracted パス\to\pak01_dir.vpk
-sourcevault pack -o mod.vpk .\mod
+vpzip info パス\to\pak01_dir.vpk
+vpzip list -l パス\to\pak01_dir.vpk
+vpzip extract -o C:\extracted パス\to\pak01_dir.vpk
+vpzip pack -o mod.vpk .\mod
 ```
 
 ## ソースからビルド

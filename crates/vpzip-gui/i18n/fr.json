@@ -1,5 +1,5 @@
 {
-  "app.title": "SourceVault",
+  "app.title": "VPZip",
   "menu.file": "Fichier",
   "menu.file.open": "Ouvrir une archive…",
   "menu.file.close": "Fermer l'archive",
@@ -9,9 +9,9 @@
   "menu.extract.selection": "Extraire la sélection…",
   "menu.language": "Langue",
   "menu.help": "Aide",
-  "menu.help.about": "À propos de SourceVault",
+  "menu.help.about": "À propos de VPZip",
   "menu.help.docs": "Documentation",
-  "status.no_archive": "Aucune archive ouverte. Fichier → Ouvrir une archive… ou glissez un fichier dans la fenêtre.",
+  "status.no_archive": "Aucune archive ouverte. Déposez une archive prise en charge ici ou utilisez Fichier → Ouvrir…",
   "status.entries": "{count} entrées — {bytes} non compressé",
   "status.format": "Format : {fmt}",
   "panel.tree": "Arborescence",
@@ -26,12 +26,15 @@
   "dialog.choose_archive": "Ouvrir une archive Valve Source",
   "dialog.choose_dest": "Choisir le dossier de destination",
   "dialog.filter": "Archives Valve Source",
-  "about.body": "SourceVault — archiveur natif gratuit en Rust pour les formats du moteur Valve Source.\n\nPrend en charge .vpk, .pak, .gcf, .sga, .wad et .xzp.\n\nLicence MIT.",
+  "about.body": "VPZip — archiveur natif gratuit en Rust pour les formats du moteur Valve Source.\n\nPrend en charge .vpk, .pak, .gcf, .sga, .wad et .xzp.\n\nLicence MIT.",
   "about.version": "Version {ver}",
   "action.open": "Ouvrir",
   "action.extract_all": "Tout extraire",
   "action.close": "Fermer",
   "error.title": "Erreur",
   "error.unknown_format": "Format d'archive non reconnu.",
-  "i18n.note": "Le changement de langue est appliqué immédiatement."
+  "i18n.note": "Le changement de langue est appliqué immédiatement.",
+  "dnd.hover_open": "Déposez pour ouvrir cette archive Valve Source.",
+  "dnd.hover_open_or_extract": "Déposez une archive pour l’ouvrir, ou un dossier pour extraire la sélection/tout dedans.",
+  "dnd.drag_entry_hint": "Faites glisser pour préparer l’export; déposez un dossier dans la fenêtre pour extraire dedans."
 }

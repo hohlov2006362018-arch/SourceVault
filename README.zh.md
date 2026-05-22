@@ -1,4 +1,4 @@
-# SourceVault
+# VPZip
 
 [🇬🇧 English](README.md) ·
 [🇷🇺 Русский](README.ru.md) ·
@@ -29,7 +29,7 @@
 - **独立运行。** 无 Java、无 .NET、无运行时——单个静态链接的 Windows 可执行文件(~5 MiB)。
 - **多架构。** 提供 `x86_64`、`i686`(32 位)、`aarch64` Windows 预编译版本。
 - **完整 Shell 集成。** 安装器为每个受支持的扩展名注册文件关联,并在右键菜单中加入
-  *用 SourceVault 打开*。
+  *用 VPZip 打开*。
 - **多语言界面** —— English、Русский、Українська、Deutsch、Français、Español、中文、日本語。
   通过*语言*菜单即时切换。
 - **多语言仓库** —— README、CHANGELOG 与 CONTRIBUTING 全部翻译。
@@ -38,17 +38,17 @@
 ## 安装
 
 从[最新版本](https://github.com/hohlov2006362018-arch/SourceVault/releases/latest)下载
-`SourceVault-x.y.z-setup.exe`。
+`VPZip-x.y.z-setup.exe`。
 
-便携版:`SourceVault-x.y.z-portable-<arch>.zip`,解压即可使用。
+便携版:`VPZip-x.y.z-portable-<arch>.zip`,解压即可使用。
 
 ## 命令行示例
 
 ```pwsh
-sourcevault info 路径\到\pak01_dir.vpk
-sourcevault list -l 路径\到\pak01_dir.vpk
-sourcevault extract -o C:\extracted 路径\到\pak01_dir.vpk
-sourcevault pack -o mod.vpk .\mod
+vpzip info 路径\到\pak01_dir.vpk
+vpzip list -l 路径\到\pak01_dir.vpk
+vpzip extract -o C:\extracted 路径\到\pak01_dir.vpk
+vpzip pack -o mod.vpk .\mod
 ```
 
 ## 从源代码构建

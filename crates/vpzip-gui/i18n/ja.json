@@ -1,5 +1,5 @@
 {
-  "app.title": "SourceVault",
+  "app.title": "VPZip",
   "menu.file": "ファイル",
   "menu.file.open": "アーカイブを開く…",
   "menu.file.close": "アーカイブを閉じる",
@@ -9,9 +9,9 @@
   "menu.extract.selection": "選択を展開…",
   "menu.language": "言語",
   "menu.help": "ヘルプ",
-  "menu.help.about": "SourceVault について",
+  "menu.help.about": "VPZip について",
   "menu.help.docs": "ドキュメント",
-  "status.no_archive": "アーカイブが開かれていません。ファイル → アーカイブを開く… か、ウィンドウにドロップしてください。",
+  "status.no_archive": "アーカイブは開かれていません。対応アーカイブをここへドロップするか、ファイル → 開く…を使ってください。",
   "status.entries": "{count} 項目 — 非圧縮 {bytes}",
   "status.format": "形式: {fmt}",
   "panel.tree": "ツリー",
@@ -26,12 +26,15 @@
   "dialog.choose_archive": "Valve Source アーカイブを開く",
   "dialog.choose_dest": "出力先フォルダを選択",
   "dialog.filter": "Valve Source アーカイブ",
-  "about.body": "SourceVault — Valve Source エンジンのアーカイブ形式用の無料ネイティブ Rust 製アーカイバ。\n\n.vpk、.pak、.gcf、.sga、.wad、.xzp に対応。\n\nMIT ライセンス。",
+  "about.body": "VPZip — Valve Source エンジンのアーカイブ形式用の無料ネイティブ Rust 製アーカイバ。\n\n.vpk、.pak、.gcf、.sga、.wad、.xzp に対応。\n\nMIT ライセンス。",
   "about.version": "バージョン {ver}",
   "action.open": "開く",
   "action.extract_all": "すべて展開",
   "action.close": "閉じる",
   "error.title": "エラー",
   "error.unknown_format": "対応するアーカイブ形式として認識できませんでした。",
-  "i18n.note": "言語の切り替えは即時反映されます。"
+  "i18n.note": "言語の切り替えは即時反映されます。",
+  "dnd.hover_open": "ドロップしてこの Valve Source アーカイブを開きます。",
+  "dnd.hover_open_or_extract": "アーカイブをドロップして開くか、フォルダーをドロップして選択項目/全体を展開します。",
+  "dnd.drag_entry_hint": "ドラッグでエクスポート準備。フォルダーをウィンドウへドロップするとそこへ展開します。"
 }

@@ -1,4 +1,4 @@
-# SourceVault
+# VPZip
 
 [🇬🇧 English](README.md) ·
 [🇷🇺 Русский](README.ru.md) ·
@@ -30,7 +30,7 @@
   Windows-EXE (~5 MiB).
 - **Alle Architekturen.** Vorgefertigte Builds für `x86_64`, `i686` (32-Bit) und `aarch64`.
 - **Volle Shell-Integration.** Der Installer registriert Dateizuordnungen für jede unterstützte
-  Endung und fügt *Mit SourceVault öffnen* zum Rechtsklick-Menü hinzu.
+  Endung und fügt *Mit VPZip öffnen* zum Rechtsklick-Menü hinzu.
 - **Mehrsprachige Oberfläche** — English, Русский, Українська, Deutsch, Français, Español, 中文,
   日本語. Sofortiger Wechsel über das Menü *Sprache*.
 - **Mehrsprachiges Repository** — README, CHANGELOG und CONTRIBUTING sind übersetzt.
@@ -38,19 +38,19 @@
 
 ## Installation
 
-Lade `SourceVault-x.y.z-setup.exe` aus dem [neuesten Release](https://github.com/hohlov2006362018-arch/SourceVault/releases/latest).
+Lade `VPZip-x.y.z-setup.exe` aus dem [neuesten Release](https://github.com/hohlov2006362018-arch/SourceVault/releases/latest).
 Der Installer registriert Dateizuordnungen, fügt den Kontextmenüeintrag hinzu und liefert einen
 sauberen Deinstallateur in *Apps & Features*.
 
-Portable Variante: `SourceVault-x.y.z-portable-<arch>.zip`, entpacken, `SourceVault.exe` starten.
+Portable Variante: `VPZip-x.y.z-portable-<arch>.zip`, entpacken, `VPZip.exe` starten.
 
 ## Kommandozeile
 
 ```pwsh
-sourcevault info Pfad\zu\pak01_dir.vpk
-sourcevault list -l Pfad\zu\pak01_dir.vpk
-sourcevault extract -o C:\extracted Pfad\zu\pak01_dir.vpk
-sourcevault pack -o mod.vpk .\mod
+vpzip info Pfad\zu\pak01_dir.vpk
+vpzip list -l Pfad\zu\pak01_dir.vpk
+vpzip extract -o C:\extracted Pfad\zu\pak01_dir.vpk
+vpzip pack -o mod.vpk .\mod
 ```
 
 ## Aus Quellcode bauen

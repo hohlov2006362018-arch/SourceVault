@@ -5,18 +5,18 @@ fn main() {
         if let Ok(repo_root) = std::env::var("CARGO_MANIFEST_DIR") {
             let icon = std::path::Path::new(&repo_root)
                 .join("..")
-                .join("sourcevault-gui")
+                .join("vpzip-gui")
                 .join("assets")
-                .join("sourcevault.ico");
+                .join("vpzip.ico");
             if icon.exists() {
                 res.set_icon(icon.to_str().unwrap());
             }
         }
-        res.set("FileDescription", "SourceVault CLI");
-        res.set("ProductName", "SourceVault");
-        res.set("OriginalFilename", "sourcevault.exe");
-        res.set("InternalName", "sourcevault");
-        res.set("CompanyName", "SourceVault contributors");
+        res.set("FileDescription", "VPZip CLI");
+        res.set("ProductName", "VPZip");
+        res.set("OriginalFilename", "vpzip.exe");
+        res.set("InternalName", "vpzip");
+        res.set("CompanyName", "VPZip contributors");
         res.set(
             "LegalCopyright",
             "Released under the MIT License. See LICENSE.",

@@ -1,13 +1,13 @@
-//! Main egui application for SourceVault.
+//! Main egui application for VPZip.
 
 use std::collections::{BTreeMap, BTreeSet};
-use std::path::PathBuf;
+use std::path::{Path, PathBuf};
 
 use eframe::egui::{
     self, Align, CentralPanel, Color32, Layout, RichText, ScrollArea, TopBottomPanel,
 };
 use eframe::CreationContext;
-use sourcevault_core::{formats, Archive, ArchiveEntry, EntryKind, OpenedArchive};
+use vpzip_core::{formats, Archive, ArchiveEntry, EntryKind, OpenedArchive};
 
 use crate::i18n::{self, Lang};
 
@@ -21,7 +21,7 @@ struct Settings {
     last_extract_dir: Option<PathBuf>,
 }
 
-pub struct SourceVaultApp {
+pub struct VPZipApp {
     settings: Settings,
     lang: Lang,
     archive: Option<LoadedArchive>,
@@ -31,6 +31,7 @@ pub struct SourceVaultApp {
     error: Option<String>,
     show_about: bool,
     preview_cache: Option<(String, PreviewKind)>,
+    status_message: Option<String>,
 }
 
 struct LoadedArchive {
@@ -56,11 +57,11 @@ enum PreviewKind {
     Empty,
 }
 
-impl SourceVaultApp {
+impl VPZipApp {
     pub fn new(cc: &CreationContext<'_>) -> Self {
         let settings: Settings = cc
             .storage
-            .and_then(|s| eframe::get_value(s, "sourcevault_settings"))
+            .and_then(|s| eframe::get_value(s, "vpzip_settings"))
             .unwrap_or_default();
         let lang = match settings.lang.as_deref() {
             Some(code) => Lang::ALL
@@ -87,6 +88,7 @@ impl SourceVaultApp {
             error: None,
             show_about: false,
             preview_cache: None,
+            status_message: None,
         }
     }
 
@@ -95,6 +97,7 @@ impl SourceVaultApp {
     }
 
     fn open_archive(&mut self, path: PathBuf) {
+        self.status_message = Some(format!("Opening {}", path.display()));
         self.preview_cache = None;
         self.selected_dir = None;
         self.selected_entry = None;
@@ -112,11 +115,108 @@ impl SourceVaultApp {
                 });
                 self.settings.last_open_dir = path.parent().map(|p| p.to_path_buf());
                 self.error = None;
+                self.status_message = Some(format!("Opened {}", path.display()));
             }
             Err(err) => {
                 self.archive = None;
                 self.error = Some(format!("{err}"));
+                self.status_message = None;
             }
+        }
+    }
+
+    fn handle_dropped_paths(&mut self, paths: Vec<PathBuf>) {
+        if paths.is_empty() {
+            return;
+        }
+
+        let mut unsupported = Vec::new();
+        for path in paths {
+            if is_supported_archive_path(&path) && path.is_file() {
+                self.open_archive(path);
+                continue;
+            }
+
+            if path.is_dir() {
+                self.extract_to_dropped_dir(&path);
+            } else {
+                unsupported.push(path);
+            }
+        }
+
+        if !unsupported.is_empty() {
+            let names = unsupported
+                .iter()
+                .map(|p| p.display().to_string())
+                .collect::<Vec<_>>()
+                .join(", ");
+            self.error = Some(format!(
+                "Dropped path is not a supported archive or destination folder: {names}"
+            ));
+        }
+    }
+
+    fn extract_to_dropped_dir(&mut self, dir: &Path) {
+        let Some(archive) = self.archive.as_mut() else {
+            self.error = Some(format!(
+                "Drop an archive file to open it first, then drop a folder to extract into it: {}",
+                dir.display()
+            ));
+            return;
+        };
+
+        self.settings.last_extract_dir = Some(dir.to_path_buf());
+        if let Some(entry_path) = self.selected_entry.clone() {
+            let dest = dir.join(entry_path.rsplit('/').next().unwrap_or(&entry_path));
+            match archive.inner.extract_entry(&entry_path, &dest) {
+                Ok(n) => {
+                    self.status_message = Some(format!(
+                        "Drag & drop export: wrote {n} bytes to {}",
+                        dest.display()
+                    ));
+                    self.error = None;
+                }
+                Err(e) => self.error = Some(format!("{e}")),
+            }
+        } else {
+            match archive.inner.extract_all(dir, None) {
+                Ok(n) => {
+                    self.status_message = Some(format!(
+                        "Drag & drop export: extracted {n} files to {}",
+                        dir.display()
+                    ));
+                    self.error = None;
+                }
+                Err(e) => self.error = Some(format!("{e}")),
+            }
+        }
+    }
+
+    fn export_entry_for_drag(&mut self, entry_path: &str) {
+        let Some(archive) = self.archive.as_mut() else {
+            return;
+        };
+        let archive_name = archive
+            .path
+            .file_stem()
+            .and_then(|s| s.to_str())
+            .unwrap_or("archive");
+        let export_root = std::env::temp_dir()
+            .join("VPZip-drag-export")
+            .join(sanitise_filename(archive_name));
+        let mut dest = export_root;
+        for part in entry_path.split('/') {
+            dest.push(part);
+        }
+        match archive.inner.extract_entry(entry_path, &dest) {
+            Ok(n) => {
+                self.status_message = Some(format!(
+                    "Drag export prepared: {} ({n} bytes). You can drag/copy it from that folder.",
+                    dest.display()
+                ));
+                self.error = None;
+            }
+            Err(e) => self.error = Some(format!("{e}")),
         }
     }
 
@@ -392,6 +492,7 @@ impl SourceVaultApp {
 
         let mut to_select_dir: Option<String> = None;
         let mut to_select_entry: Option<String> = None;
+        let mut to_drag_export: Option<String> = None;
 
         ScrollArea::vertical()
             .id_source("entries_scroll")
@@ -440,9 +541,15 @@ impl SourceVaultApp {
                                         } else {
                                             ui.visuals().text_color()
                                         });
-                                    if ui.selectable_label(selected, label).clicked() {
+                                    let response = ui.selectable_label(selected, label);
+                                    if response.clicked() {
                                         to_select_entry = Some(entry.path.clone());
                                     }
+                                    if response.drag_started() {
+                                        to_select_entry = Some(entry.path.clone());
+                                        to_drag_export = Some(entry.path.clone());
+                                    }
+                                    response.on_hover_text(self.t("dnd.drag_entry_hint"));
                                 });
                                 row.col(|ui| {
                                     ui.label(format_bytes(entry.size));
@@ -466,6 +573,37 @@ impl SourceVaultApp {
         if let Some(e) = to_select_entry {
             self.selected_entry = Some(e);
         }
+        if let Some(e) = to_drag_export {
+            self.export_entry_for_drag(&e);
+        }
+    }
+
+    fn ui_drag_overlay(&self, ctx: &egui::Context) {
+        let hovered = ctx.input(|i| i.raw.hovered_files.clone());
+        if hovered.is_empty() {
+            return;
+        }
+
+        let text = if self.archive.is_some() {
+            self.t("dnd.hover_open_or_extract")
+        } else {
+            self.t("dnd.hover_open")
+        };
+
+        let painter = ctx.layer_painter(egui::LayerId::new(
+            egui::Order::Foreground,
+            egui::Id::new("vpzip_drag_overlay"),
+        ));
+        let rect = ctx.screen_rect().shrink(32.0);
+        painter.rect_filled(rect, 12.0, Color32::from_rgba_unmultiplied(20, 24, 32, 210));
+        painter.rect_stroke(rect, 12.0, egui::Stroke::new(2.0, Color32::LIGHT_BLUE));
+        painter.text(
+            rect.center(),
+            egui::Align2::CENTER_CENTER,
+            text,
+            egui::TextStyle::Heading.resolve(&ctx.style()),
+            Color32::WHITE,
+        );
     }
 
     fn ui_preview(&mut self, ui: &mut egui::Ui) {
@@ -511,32 +649,44 @@ impl SourceVaultApp {
     }
 }
 
-impl eframe::App for SourceVaultApp {
+impl eframe::App for VPZipApp {
     fn update(&mut self, ctx: &egui::Context, _frame: &mut eframe::Frame) {
-        // Handle file drops.
-        let dropped = ctx.input(|i| i.raw.dropped_files.clone());
-        if let Some(file) = dropped.iter().find_map(|f| f.path.clone()) {
-            self.open_archive(file);
-        }
+        // Handle OS drag & drop in both useful directions:
+        //   * archive files dropped on the window are opened;
+        //   * destination folders dropped on an opened archive extract the selection/all files.
+        let dropped_paths: Vec<PathBuf> = ctx.input(|i| {
+            i.raw
+                .dropped_files
+                .iter()
+                .filter_map(|f| f.path.clone())
+                .collect()
+        });
+        self.handle_dropped_paths(dropped_paths);
 
         self.refresh_preview(ctx);
 
         TopBottomPanel::top("menu_bar").show(ctx, |ui| self.ui_menu(ctx, ui));
 
         TopBottomPanel::bottom("status").show(ctx, |ui| {
-            ui.horizontal(|ui| match &self.archive {
-                Some(a) => {
-                    let label =
-                        i18n::t(self.lang, "status.format").replace("{fmt}", a.inner.format_name());
-                    ui.label(label);
-                    ui.separator();
-                    let label = i18n::t(self.lang, "status.entries")
-                        .replace("{count}", &a.inner.entries().len().to_string())
-                        .replace("{bytes}", &format_bytes(a.total_size));
-                    ui.label(label);
+            ui.horizontal(|ui| {
+                match &self.archive {
+                    Some(a) => {
+                        let label = i18n::t(self.lang, "status.format")
+                            .replace("{fmt}", a.inner.format_name());
+                        ui.label(label);
+                        ui.separator();
+                        let label = i18n::t(self.lang, "status.entries")
+                            .replace("{count}", &a.inner.entries().len().to_string())
+                            .replace("{bytes}", &format_bytes(a.total_size));
+                        ui.label(label);
+                    }
+                    None => {
+                        ui.label(i18n::t(self.lang, "status.no_archive"));
+                    }
                 }
-                None => {
-                    ui.label(i18n::t(self.lang, "status.no_archive"));
+                if let Some(message) = &self.status_message {
+                    ui.separator();
+                    ui.label(message);
                 }
             });
         });
@@ -561,6 +711,8 @@ impl eframe::App for SourceVaultApp {
             ui.heading(self.t("panel.entries"));
             self.ui_entry_list(ui);
         });
+
+        self.ui_drag_overlay(ctx);
 
         // About dialog.
         if self.show_about {
@@ -603,7 +755,7 @@ impl eframe::App for SourceVaultApp {
     }
 
     fn save(&mut self, storage: &mut dyn eframe::Storage) {
-        eframe::set_value(storage, "sourcevault_settings", &self.settings);
+        eframe::set_value(storage, "vpzip_settings", &self.settings);
     }
 }
 
@@ -715,6 +867,35 @@ fn format_bytes(n: u64) -> String {
     }
 }
 
+fn is_supported_archive_path(path: &Path) -> bool {
+    path.extension()
+        .and_then(|ext| ext.to_str())
+        .map(|ext| {
+            matches!(
+                ext.to_ascii_lowercase().as_str(),
+                "vpk" | "pak" | "gcf" | "sga" | "wad" | "xzp" | "ncf"
+            )
+        })
+        .unwrap_or(false)
+}
+
+fn sanitise_filename(name: &str) -> String {
+    let cleaned: String = name
+        .chars()
+        .map(|ch| match ch {
+            '<' | '>' | ':' | '"' | '/' | '\\' | '|' | '?' | '*' | '\0' => '_',
+            c if c.is_control() => '_',
+            c => c,
+        })
+        .collect();
+    let trimmed = cleaned.trim_matches([' ', '.']);
+    if trimmed.is_empty() {
+        "archive".to_string()
+    } else {
+        trimmed.to_string()
+    }
+}
+
 #[cfg(target_os = "windows")]
 fn open_url(url: &str) -> std::io::Result<()> {
     std::process::Command::new("cmd")
@@ -737,4 +918,22 @@ fn open_url(url: &str) -> std::io::Result<()> {
         .arg(url)
         .spawn()
         .map(|_| ())
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn supported_archive_detection_is_case_insensitive() {
+        assert!(is_supported_archive_path(Path::new("pak01_dir.VPK")));
+        assert!(is_supported_archive_path(Path::new("textures.wad")));
+        assert!(!is_supported_archive_path(Path::new("readme.txt")));
+    }
+
+    #[test]
+    fn drag_export_names_are_filesystem_safe() {
+        assert_eq!(sanitise_filename("pak:01/dir"), "pak_01_dir");
+        assert_eq!(sanitise_filename("..."), "archive");
+    }
 }

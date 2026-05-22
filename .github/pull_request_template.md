@@ -15,5 +15,5 @@
 - [ ] `cargo fmt --all -- --check` is clean
 - [ ] `cargo clippy --workspace --all-targets -- -D warnings` is clean
 - [ ] `cargo test --workspace` passes locally
-- [ ] If a new translation key was added, every `crates/sourcevault-gui/i18n/*.json` was updated
+- [ ] If a new translation key was added, every `crates/vpzip-gui/i18n/*.json` was updated
 - [ ] CHANGELOG.md updated under `## [Unreleased]`

@@ -1,4 +1,4 @@
-//! SourceVault command-line interface.
+//! VPZip command-line interface.
 
 use std::path::{Path, PathBuf};
 use std::process::ExitCode;
@@ -6,11 +6,11 @@ use std::process::ExitCode;
 use anyhow::{Context, Result};
 use clap::{Parser, Subcommand};
 use indicatif::{ProgressBar, ProgressStyle};
-use sourcevault_core::{formats, Archive, ArchiveEntry, EntryKind, Format};
+use vpzip_core::{formats, Archive, ArchiveEntry, EntryKind, Format};
 
 #[derive(Parser)]
 #[command(
-    name = "sourcevault",
+    name = "vpzip",
     author,
     version,
     about = "Free, native Rust archiver for Valve Source engine formats.",
@@ -182,7 +182,7 @@ fn cmd_pack(source: &Path, output: &Path) -> Result<()> {
 
     let file = std::fs::File::create(output)?;
     let mut writer = std::io::BufWriter::new(file);
-    sourcevault_core::formats::vpk::write_v1(&mut writer, entries)?;
+    vpzip_core::formats::vpk::write_v1(&mut writer, entries)?;
     println!("wrote {}", output.display());
     Ok(())
 }

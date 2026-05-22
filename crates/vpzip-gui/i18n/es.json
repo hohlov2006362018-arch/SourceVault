@@ -1,5 +1,5 @@
 {
-  "app.title": "SourceVault",
+  "app.title": "VPZip",
   "menu.file": "Archivo",
   "menu.file.open": "Abrir archivo…",
   "menu.file.close": "Cerrar archivo",
@@ -9,9 +9,9 @@
   "menu.extract.selection": "Extraer selección…",
   "menu.language": "Idioma",
   "menu.help": "Ayuda",
-  "menu.help.about": "Acerca de SourceVault",
+  "menu.help.about": "Acerca de VPZip",
   "menu.help.docs": "Documentación",
-  "status.no_archive": "No hay archivo abierto. Archivo → Abrir archivo… o arrastra un fichero a la ventana.",
+  "status.no_archive": "No hay archivo abierto. Suelta aquí un archivo compatible o usa Archivo → Abrir…",
   "status.entries": "{count} entradas — {bytes} sin comprimir",
   "status.format": "Formato: {fmt}",
   "panel.tree": "Árbol",
@@ -26,12 +26,15 @@
   "dialog.choose_archive": "Abrir archivo de Valve Source",
   "dialog.choose_dest": "Elegir carpeta de destino",
   "dialog.filter": "Archivos de Valve Source",
-  "about.body": "SourceVault — archivador nativo gratuito en Rust para los formatos del motor Valve Source.\n\nAdmite .vpk, .pak, .gcf, .sga, .wad y .xzp.\n\nLicencia MIT.",
+  "about.body": "VPZip — archivador nativo gratuito en Rust para los formatos del motor Valve Source.\n\nAdmite .vpk, .pak, .gcf, .sga, .wad y .xzp.\n\nLicencia MIT.",
   "about.version": "Versión {ver}",
   "action.open": "Abrir",
   "action.extract_all": "Extraer todo",
   "action.close": "Cerrar",
   "error.title": "Error",
   "error.unknown_format": "El archivo no se reconoce como un formato compatible.",
-  "i18n.note": "El cambio de idioma se aplica al instante."
+  "i18n.note": "El cambio de idioma se aplica al instante.",
+  "dnd.hover_open": "Suelta para abrir este archivo de Valve Source.",
+  "dnd.hover_open_or_extract": "Suelta archivos para abrirlos, o una carpeta para extraer la selección/todo allí.",
+  "dnd.drag_entry_hint": "Arrastra para preparar la exportación; suelta una carpeta en la ventana para extraer allí."
 }

@@ -1,5 +1,5 @@
 {
-  "app.title": "SourceVault",
+  "app.title": "VPZip",
   "menu.file": "Файл",
   "menu.file.open": "Відкрити архів…",
   "menu.file.close": "Закрити архів",
@@ -9,9 +9,9 @@
   "menu.extract.selection": "Видобути виділене…",
   "menu.language": "Мова",
   "menu.help": "Довідка",
-  "menu.help.about": "Про програму",
+  "menu.help.about": "Про VPZip",
   "menu.help.docs": "Документація",
-  "status.no_archive": "Архів не відкрито. Файл → Відкрити архів… або перетягніть файл у вікно.",
+  "status.no_archive": "Архів не відкрито. Перетягніть сюди підтримуваний архів або скористайтесь Файл → Відкрити архів…",
   "status.entries": "{count} елементів — {bytes} без стиснення",
   "status.format": "Формат: {fmt}",
   "panel.tree": "Дерево",
@@ -26,12 +26,15 @@
   "dialog.choose_archive": "Відкрити архів Valve Source",
   "dialog.choose_dest": "Виберіть теку призначення",
   "dialog.filter": "Архіви Valve Source",
-  "about.body": "SourceVault — безкоштовний нативний архіватор Rust для форматів рушія Valve Source.\n\nПідтримує .vpk, .pak, .gcf, .sga, .wad та .xzp.\n\nЛіцензія MIT.",
+  "about.body": "VPZip — безкоштовний нативний архіватор Rust для форматів рушія Valve Source.\n\nПідтримує .vpk, .pak, .gcf, .sga, .wad та .xzp.\n\nЛіцензія MIT.",
   "about.version": "Версія {ver}",
   "action.open": "Відкрити",
   "action.extract_all": "Видобути все",
   "action.close": "Закрити",
   "error.title": "Помилка",
   "error.unknown_format": "Не вдалося розпізнати файл як підтримуваний архів.",
-  "i18n.note": "Зміна мови набуває чинності одразу."
+  "i18n.note": "Зміна мови набуває чинності одразу.",
+  "dnd.hover_open": "Відпустіть, щоб відкрити цей архів Valve Source.",
+  "dnd.hover_open_or_extract": "Відпустіть архів, щоб відкрити його, або теку — щоб витягти вибране/усе в неї.",
+  "dnd.drag_entry_hint": "Перетягніть, щоб підготувати файл до експорту; киньте теку у вікно, щоб витягти туди."
 }

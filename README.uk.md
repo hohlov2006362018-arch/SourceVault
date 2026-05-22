@@ -1,4 +1,4 @@
-# SourceVault
+# VPZip
 
 [🇬🇧 English](README.md) ·
 [🇷🇺 Русский](README.ru.md) ·
@@ -33,27 +33,27 @@
 - **Незалежний.** Без рантайму, без Java, без .NET. Один статично злінкований `.exe` ~5 МіБ.
 - **Усі архітектури.** Готові збірки під `x86_64`, `i686` (32-бітна) та `aarch64` Windows.
 - **Інтеграція з Провідником.** Інсталятор реєструє асоціації для `.vpk / .pak / .gcf / .sga /
-  .wad / .xzp` і додає пункт *Відкрити за допомогою SourceVault* у контекстне меню.
+  .wad / .xzp` і додає пункт *Відкрити за допомогою VPZip* у контекстне меню.
 - **Багатомовний інтерфейс** — English, Русский, Українська, Deutsch, Français, Español, 中文,
   日本語. Перемикання без перезапуску; нові переклади — це лише `.json`-файли.
 - **Багатомовне сховище** — README, CHANGELOG та CONTRIBUTING перекладено.
-- **GUI + CLI.** `sourcevault-gui.exe` — вікно у стилі WinRAR; `sourcevault.exe` — скриптовий
+- **GUI + CLI.** `vpzip-gui.exe` — вікно у стилі WinRAR; `vpzip.exe` — скриптовий
   командний рядок.
 
 ## Встановлення
 
-Завантажте `SourceVault-x.y.z-setup.exe` з [останнього релізу](https://github.com/hohlov2006362018-arch/SourceVault/releases/latest).
+Завантажте `VPZip-x.y.z-setup.exe` з [останнього релізу](https://github.com/hohlov2006362018-arch/SourceVault/releases/latest).
 Інсталятор реєструє асоціації файлів, додає пункт контекстного меню та створює деінсталятор.
 
-Портативна версія — `SourceVault-x.y.z-portable-<arch>.zip` — не змінює реєстр.
+Портативна версія — `VPZip-x.y.z-portable-<arch>.zip` — не змінює реєстр.
 
 ## Приклади командного рядка
 
 ```pwsh
-sourcevault info шлях\до\pak01_dir.vpk
-sourcevault list -l шлях\до\pak01_dir.vpk
-sourcevault extract -o C:\extracted шлях\до\pak01_dir.vpk
-sourcevault pack -o my_mod.vpk .\my_mod
+vpzip info шлях\до\pak01_dir.vpk
+vpzip list -l шлях\до\pak01_dir.vpk
+vpzip extract -o C:\extracted шлях\до\pak01_dir.vpk
+vpzip pack -o my_mod.vpk .\my_mod
 ```
 
 ## Збірка з джерел

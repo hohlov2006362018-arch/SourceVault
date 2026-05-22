@@ -1,10 +1,21 @@
 # Changelog
 
-All notable changes to SourceVault are documented in this file. The format follows
+All notable changes to VPZip are documented in this file. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [0.2.0] — 2026-05-22
+
+### Changed
+
+- Project renamed to VPZip (Valve Pack ZIP); GUI title, CLI command, package names, installer metadata and docs now use the VPZip branding.
+
+### Added
+
+- Two-way drag-and-drop workflow in the GUI: drop archives to open them, drop destination folders to extract selected/all entries, drag entries to prepare a filesystem export, and show a drop overlay/status message.
+- Unit coverage for supported archive drop detection and safe drag-export folder names.
 
 ## [0.1.1] — 2026-05-11
 
@@ -21,25 +32,26 @@ All notable changes to SourceVault are documented in this file. The format follo
 
 ### Added
 
-- `crates/sourcevault-cli/build.rs`: embed VERSIONINFO + icon into `sourcevault.exe`.
+- `crates/vpzip-cli/build.rs`: embed VERSIONINFO + icon into `vpzip.exe`.
 
 ## [0.1.0] — 2026-05-11
 
 ### Added
 
-- Initial scaffolding of the Rust workspace (`sourcevault-core`, `sourcevault-cli`,
-  `sourcevault-gui`).
+- Initial scaffolding of the Rust workspace (`vpzip-core`, `vpzip-cli`,
+  `vpzip-gui`).
 - Read support for `.vpk` (v1 + v2, multi-part), `.pak`, `.wad` (WAD2/WAD3), `.xzp` (v1/v6),
   `.gcf` (v1/v3/v5/v6) and `.sga` (v4/v5).
 - Write support for `.vpk` v1 single-file and `.pak`.
 - WinRAR-style GUI with tree view, entry list, preview pane and drag-and-drop.
 - Multilingual UI (8 languages out of the box).
 - Multilingual repository README (8 languages).
-- `sourcevault` CLI binary with `list`, `info`, `extract`, `pack` and `formats` subcommands.
+- `vpzip` CLI binary with `list`, `info`, `extract`, `pack` and `formats` subcommands.
 - Inno Setup installer with shell integration (file associations, *Open with* context-menu
   entry) and a clean uninstaller.
 - GitHub Actions pipelines for clippy, formatting, multi-arch builds and release packaging.
 
-[Unreleased]: https://github.com/hohlov2006362018-arch/SourceVault/compare/v0.1.1...HEAD
+[Unreleased]: https://github.com/hohlov2006362018-arch/SourceVault/compare/v0.2.0...HEAD
+[0.2.0]: https://github.com/hohlov2006362018-arch/SourceVault/releases/tag/v0.2.0
 [0.1.1]: https://github.com/hohlov2006362018-arch/SourceVault/releases/tag/v0.1.1
 [0.1.0]: https://github.com/hohlov2006362018-arch/SourceVault/releases/tag/v0.1.0

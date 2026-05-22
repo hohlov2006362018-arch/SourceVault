@@ -3122,52 +3122,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "sourcevault-cli"
-version = "0.1.1"
-dependencies = [
- "anyhow",
- "clap",
- "env_logger",
- "indicatif",
- "log",
- "sourcevault-core",
- "winres",
-]
-
-[[package]]
-name = "sourcevault-core"
-version = "0.1.1"
-dependencies = [
- "anyhow",
- "byteorder",
- "crc32fast",
- "env_logger",
- "flate2",
- "log",
- "serde",
- "thiserror 1.0.69",
-]
-
-[[package]]
-name = "sourcevault-gui"
-version = "0.1.1"
-dependencies = [
- "anyhow",
- "eframe",
- "egui",
- "egui_extras",
- "env_logger",
- "image 0.25.10",
- "log",
- "rfd",
- "rust-i18n",
- "serde",
- "serde_json",
- "sourcevault-core",
- "winres",
-]
-
-[[package]]
 name = "stable_deref_trait"
 version = "1.2.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3605,6 +3559,52 @@ name = "version_check"
 version = "0.9.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "0b928f33d975fc6ad9f86c8f283853ad26bdd5b10b7f1542aa2fa15e2289105a"
+
+[[package]]
+name = "vpzip-cli"
+version = "0.2.0"
+dependencies = [
+ "anyhow",
+ "clap",
+ "env_logger",
+ "indicatif",
+ "log",
+ "vpzip-core",
+ "winres",
+]
+
+[[package]]
+name = "vpzip-core"
+version = "0.2.0"
+dependencies = [
+ "anyhow",
+ "byteorder",
+ "crc32fast",
+ "env_logger",
+ "flate2",
+ "log",
+ "serde",
+ "thiserror 1.0.69",
+]
+
+[[package]]
+name = "vpzip-gui"
+version = "0.2.0"
+dependencies = [
+ "anyhow",
+ "eframe",
+ "egui",
+ "egui_extras",
+ "env_logger",
+ "image 0.25.10",
+ "log",
+ "rfd",
+ "rust-i18n",
+ "serde",
+ "serde_json",
+ "vpzip-core",
+ "winres",
+]
 
 [[package]]
 name = "walkdir"

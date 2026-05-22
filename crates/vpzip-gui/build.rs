@@ -5,18 +5,18 @@ fn main() {
         // Windows 7+ compatibility. The manifest is what makes the binary register cleanly with
         // shell-integration and prevents UAC virtualisation on legacy targets.
         let mut res = winres::WindowsResource::new();
-        let icon = std::path::Path::new("assets").join("sourcevault.ico");
+        let icon = std::path::Path::new("assets").join("vpzip.ico");
         if icon.exists() {
             res.set_icon(icon.to_str().unwrap());
         }
         res.set(
             "FileDescription",
-            "SourceVault \u{2014} Valve Source engine archiver",
+            "VPZip \u{2014} Valve Source engine archiver",
         );
-        res.set("ProductName", "SourceVault");
-        res.set("OriginalFilename", "SourceVault.exe");
-        res.set("InternalName", "SourceVault");
-        res.set("CompanyName", "SourceVault contributors");
+        res.set("ProductName", "VPZip");
+        res.set("OriginalFilename", "VPZip.exe");
+        res.set("InternalName", "VPZip");
+        res.set("CompanyName", "VPZip contributors");
         res.set(
             "LegalCopyright",
             "Released under the MIT License. See LICENSE.",

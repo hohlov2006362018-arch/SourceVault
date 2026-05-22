@@ -1,18 +1,18 @@
 [package]
-name = "sourcevault-cli"
+name = "vpzip-cli"
 version.workspace = true
 edition.workspace = true
 authors.workspace = true
 license.workspace = true
 repository.workspace = true
-description = "Command-line interface for SourceVault."
+description = "Command-line interface for VPZip."
 
 [[bin]]
-name = "sourcevault"
+name = "vpzip"
 path = "src/main.rs"
 
 [dependencies]
-sourcevault-core = { path = "../sourcevault-core" }
+vpzip-core = { path = "../vpzip-core" }
 anyhow.workspace = true
 clap.workspace = true
 log.workspace = true
@@ -23,4 +23,4 @@ indicatif.workspace = true
 winres = "0.1"
 
 [dev-dependencies]
-sourcevault-core = { path = "../sourcevault-core" }
+vpzip-core = { path = "../vpzip-core" }

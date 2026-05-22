@@ -1,5 +1,5 @@
 {
-  "app.title": "SourceVault",
+  "app.title": "VPZip",
   "menu.file": "文件",
   "menu.file.open": "打开归档…",
   "menu.file.close": "关闭归档",
@@ -9,9 +9,9 @@
   "menu.extract.selection": "提取所选…",
   "menu.language": "语言",
   "menu.help": "帮助",
-  "menu.help.about": "关于 SourceVault",
+  "menu.help.about": "关于 VPZip",
   "menu.help.docs": "文档",
-  "status.no_archive": "未打开归档。文件 → 打开归档… 或将文件拖到窗口中。",
+  "status.no_archive": "未打开归档。将受支持归档拖到此处，或使用“文件 → 打开归档…”。",
   "status.entries": "{count} 项 — 未压缩 {bytes}",
   "status.format": "格式:{fmt}",
   "panel.tree": "目录树",
@@ -26,12 +26,15 @@
   "dialog.choose_archive": "打开 Valve Source 归档",
   "dialog.choose_dest": "选择目标文件夹",
   "dialog.filter": "Valve Source 归档",
-  "about.body": "SourceVault — 用于 Valve Source 引擎归档格式的免费原生 Rust 归档工具。\n\n支持 .vpk、.pak、.gcf、.sga、.wad 和 .xzp。\n\nMIT 许可证。",
+  "about.body": "VPZip — 用于 Valve Source 引擎归档格式的免费原生 Rust 归档工具。\n\n支持 .vpk、.pak、.gcf、.sga、.wad 和 .xzp。\n\nMIT 许可证。",
   "about.version": "版本 {ver}",
   "action.open": "打开",
   "action.extract_all": "全部提取",
   "action.close": "关闭",
   "error.title": "错误",
   "error.unknown_format": "无法识别此文件为受支持的归档格式。",
-  "i18n.note": "切换语言立即生效。"
+  "i18n.note": "切换语言立即生效。",
+  "dnd.hover_open": "松开以打开此 Valve Source 归档。",
+  "dnd.hover_open_or_extract": "拖入归档可打开；拖入文件夹可将所选/全部提取到其中。",
+  "dnd.drag_entry_hint": "拖动可准备导出；将文件夹拖入窗口即可提取到那里。"
 }

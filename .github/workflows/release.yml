@@ -54,13 +54,13 @@ jobs:
         run: |
           $v = "${{ steps.version.outputs.value }}"
           $arch = "${{ matrix.arch_label }}"
-          $stage = "stage/SourceVault-$v-$arch"
+          $stage = "stage/VPZip-$v-$arch"
           New-Item -ItemType Directory -Path $stage | Out-Null
-          Copy-Item "target/${{ matrix.target }}/release/sourcevault-gui.exe" "$stage/SourceVault.exe"
-          Copy-Item "target/${{ matrix.target }}/release/sourcevault.exe" "$stage/sourcevault.exe"
+          Copy-Item "target/${{ matrix.target }}/release/vpzip-gui.exe" "$stage/VPZip.exe"
+          Copy-Item "target/${{ matrix.target }}/release/vpzip.exe" "$stage/vpzip.exe"
           Copy-Item "LICENSE" "$stage/LICENSE.txt"
           Copy-Item "README.md" "$stage/README.txt"
-          Compress-Archive -Path "$stage/*" -DestinationPath "SourceVault-$v-portable-$arch.zip"
+          Compress-Archive -Path "$stage/*" -DestinationPath "VPZip-$v-portable-$arch.zip"
       - name: Compile installer (x64 only)
         if: matrix.arch_label == 'x64'
         shell: pwsh
@@ -68,22 +68,22 @@ jobs:
           $v = "${{ steps.version.outputs.value }}"
           $iscc = "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe"
           if (-not (Test-Path $iscc)) { choco install innosetup --no-progress -y }
-          & $iscc /DAppVersion=$v /DPayloadDir=stage/SourceVault-$v-x64 installer/sourcevault.iss
-          Move-Item installer/output/*.exe "SourceVault-$v-setup-x64.exe"
+          & $iscc /DAppVersion=$v /DPayloadDir=stage/VPZip-$v-x64 installer/vpzip.iss
+          Move-Item installer/output/*.exe "VPZip-$v-setup-x64.exe"
       - name: Generate checksums
         shell: pwsh
         run: |
-          Get-ChildItem -File -Filter "SourceVault-*" | ForEach-Object {
+          Get-ChildItem -File -Filter "VPZip-*" | ForEach-Object {
             $hash = (Get-FileHash -Algorithm SHA256 $_.FullName).Hash.ToLower()
             "$hash  $($_.Name)"
-          } | Out-File -Encoding ascii "SourceVault-${{ steps.version.outputs.value }}-${{ matrix.arch_label }}.sha256"
+          } | Out-File -Encoding ascii "VPZip-${{ steps.version.outputs.value }}-${{ matrix.arch_label }}.sha256"
       - uses: actions/upload-artifact@v4
         with:
           name: release-${{ matrix.arch_label }}
           path: |
-            SourceVault-*-portable-*.zip
-            SourceVault-*-setup-*.exe
-            SourceVault-*-*.sha256
+            VPZip-*-portable-*.zip
+            VPZip-*-setup-*.exe
+            VPZip-*-*.sha256
 
   publish:
     name: publish release
@@ -97,11 +97,11 @@ jobs:
       - name: Flatten artifacts
         run: |
           find dist -type f -exec mv {} . \;
-          ls -la SourceVault-*
+          ls -la VPZip-*
       - uses: softprops/action-gh-release@v2
         with:
           generate_release_notes: true
           files: |
-            SourceVault-*-portable-*.zip
-            SourceVault-*-setup-*.exe
-            SourceVault-*-*.sha256
+            VPZip-*-portable-*.zip
+            VPZip-*-setup-*.exe
+            VPZip-*-*.sha256

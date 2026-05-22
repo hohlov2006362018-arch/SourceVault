@@ -1,5 +1,5 @@
 [package]
-name = "sourcevault-core"
+name = "vpzip-core"
 version.workspace = true
 edition.workspace = true
 authors.workspace = true
@@ -8,7 +8,7 @@ repository.workspace = true
 description = "Format readers and writers for Valve Source engine archives (.vpk, .pak, .gcf, .sga, .wad, .xzp)."
 
 [lib]
-name = "sourcevault_core"
+name = "vpzip_core"
 path = "src/lib.rs"
 
 [dependencies]

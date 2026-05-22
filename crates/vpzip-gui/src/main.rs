@@ -1,4 +1,4 @@
-//! SourceVault GUI entry point.
+//! VPZip GUI entry point.
 //!
 //! The Windows build is tagged `#![windows_subsystem = "windows"]` so the executable does not
 //! summon a console window when launched from Explorer. The CLI binary is a separate crate.
@@ -20,15 +20,15 @@ fn main() -> Result<(), eframe::Error> {
         viewport: egui::ViewportBuilder::default()
             .with_inner_size([1100.0, 720.0])
             .with_min_inner_size([720.0, 480.0])
-            .with_title("SourceVault")
+            .with_title("VPZip")
             .with_icon(load_icon()),
         ..Default::default()
     };
 
     eframe::run_native(
-        "SourceVault",
+        "VPZip",
         native_options,
-        Box::new(|cc| Box::new(app::SourceVaultApp::new(cc))),
+        Box::new(|cc| Box::new(app::VPZipApp::new(cc))),
     )
 }
 

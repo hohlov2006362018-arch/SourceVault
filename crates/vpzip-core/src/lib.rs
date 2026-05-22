@@ -1,4 +1,4 @@
-//! SourceVault core — format readers (and selected writers) for Valve Source engine archives.
+//! VPZip core — format readers (and selected writers) for Valve Source engine archives.
 //!
 //! Supported formats:
 //!

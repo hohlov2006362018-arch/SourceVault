@@ -1,4 +1,4 @@
-# SourceVault
+# VPZip
 
 [🇬🇧 English](README.md) ·
 [🇷🇺 Русский](README.ru.md) ·
@@ -30,7 +30,7 @@
   estáticamente (~5 MiB).
 - **Todas las arquitecturas.** Binarios precompilados para `x86_64`, `i686` (32 bits) y `aarch64`.
 - **Integración completa con el Explorador.** El instalador registra asociaciones para todas las
-  extensiones y añade *Abrir con SourceVault* al menú contextual.
+  extensiones y añade *Abrir con VPZip* al menú contextual.
 - **Interfaz multilingüe** — English, Русский, Українська, Deutsch, Français, Español, 中文,
   日本語. Cambio inmediato desde el menú *Idioma*.
 - **Repositorio multilingüe** — README, CHANGELOG y CONTRIBUTING traducidos.
@@ -38,17 +38,17 @@
 
 ## Instalación
 
-Descarga `SourceVault-x.y.z-setup.exe` desde la [última versión](https://github.com/hohlov2006362018-arch/SourceVault/releases/latest).
+Descarga `VPZip-x.y.z-setup.exe` desde la [última versión](https://github.com/hohlov2006362018-arch/SourceVault/releases/latest).
 
-Versión portable: `SourceVault-x.y.z-portable-<arch>.zip`, extrae y ejecuta.
+Versión portable: `VPZip-x.y.z-portable-<arch>.zip`, extrae y ejecuta.
 
 ## Línea de comandos
 
 ```pwsh
-sourcevault info ruta\a\pak01_dir.vpk
-sourcevault list -l ruta\a\pak01_dir.vpk
-sourcevault extract -o C:\extracted ruta\a\pak01_dir.vpk
-sourcevault pack -o mod.vpk .\mod
+vpzip info ruta\a\pak01_dir.vpk
+vpzip list -l ruta\a\pak01_dir.vpk
+vpzip extract -o C:\extracted ruta\a\pak01_dir.vpk
+vpzip pack -o mod.vpk .\mod
 ```
 
 ## Compilación desde código fuente

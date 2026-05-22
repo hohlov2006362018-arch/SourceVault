@@ -1,4 +1,4 @@
-# SourceVault
+# VPZip
 
 [🇬🇧 English](README.md) ·
 **🇷🇺 Русский** ·
@@ -38,11 +38,11 @@
   Открыл — работаешь.
 - **Все архитектуры.** Готовые сборки под `x86_64`, `i686` (32-битная) и `aarch64` Windows.
 - **Интеграция с Проводником.** Инсталлятор регистрирует ассоциации для `.vpk / .pak / .gcf /
-  .sga / .wad / .xzp` и добавляет пункт *Открыть с помощью SourceVault* в контекстное меню.
+  .sga / .wad / .xzp` и добавляет пункт *Открыть с помощью VPZip* в контекстное меню.
 - **Многоязычный интерфейс** — English, Русский, Українська, Deutsch, Français, Español, 中文,
   日本語. Переключение из меню «Язык» без перезапуска; новые переводы — это просто `.json`-файлы.
 - **Многоязычный репозиторий** — README, CHANGELOG и CONTRIBUTING переведены.
-- **GUI + CLI.** `sourcevault-gui.exe` — окно в стиле WinRAR; `sourcevault.exe` — скриптуемый
+- **GUI + CLI.** `vpzip-gui.exe` — окно в стиле WinRAR; `vpzip.exe` — скриптуемый
   спутник для командной строки.
 - **Современный Rust.** `#[forbid(unsafe_code)]` в крейте-парсере, без UPX, без обфускации,
   воспроизводимые сборки `cargo` + GitHub Actions.
@@ -51,38 +51,38 @@
 
 ### Инсталлятор (рекомендуется)
 
-Скачайте `SourceVault-x.y.z-setup.exe` из [последнего релиза](https://github.com/hohlov2006362018-arch/SourceVault/releases/latest).
+Скачайте `VPZip-x.y.z-setup.exe` из [последнего релиза](https://github.com/hohlov2006362018-arch/SourceVault/releases/latest).
 
 Инсталлятор:
 
-- Ставит `SourceVault.exe` и `sourcevault.exe` в `%ProgramFiles%\SourceVault`.
+- Ставит `VPZip.exe` и `vpzip.exe` в `%ProgramFiles%\VPZip`.
 - Регистрирует ассоциации для всех поддерживаемых расширений.
-- Добавляет пункт *Открыть с помощью SourceVault* в правый клик.
+- Добавляет пункт *Открыть с помощью VPZip* в правый клик.
 - Создаёт ярлыки в меню «Пуск».
 - Имеет чистый деинсталлятор в *Приложения и возможности*.
 
 ### Портативная сборка
 
-Скачайте `SourceVault-x.y.z-portable-<arch>.zip`, распакуйте куда угодно, запустите
-`SourceVault.exe`. Реестр не трогается — идеально для USB-флешек и песочниц.
+Скачайте `VPZip-x.y.z-portable-<arch>.zip`, распакуйте куда угодно, запустите
+`VPZip.exe`. Реестр не трогается — идеально для USB-флешек и песочниц.
 
 ## Примеры командной строки
 
 ```pwsh
 # Информация об архиве
-sourcevault info путь\к\pak01_dir.vpk
+vpzip info путь\к\pak01_dir.vpk
 
 # Список файлов с размером и CRC32
-sourcevault list -l путь\к\pak01_dir.vpk
+vpzip list -l путь\к\pak01_dir.vpk
 
 # Извлечь всё в папку
-sourcevault extract -o C:\extracted путь\к\pak01_dir.vpk
+vpzip extract -o C:\extracted путь\к\pak01_dir.vpk
 
 # Извлечь только `materials/dev/`
-sourcevault extract -p materials/dev/ -o C:\extracted путь\к\pak01_dir.vpk
+vpzip extract -p materials/dev/ -o C:\extracted путь\к\pak01_dir.vpk
 
 # Собрать каталог в новый VPK v1
-sourcevault pack -o my_mod.vpk .\my_mod
+vpzip pack -o my_mod.vpk .\my_mod
 ```
 
 ## Сборка из исходников
@@ -91,8 +91,8 @@ sourcevault pack -o my_mod.vpk .\my_mod
 
 ```pwsh
 cargo build --release
-.\target\release\sourcevault.exe formats
-.\target\release\sourcevault-gui.exe
+.\target\release\vpzip.exe formats
+.\target\release\vpzip-gui.exe
 ```
 
 Запуск всех тестов:
@@ -129,5 +129,5 @@ Windows 7+ с OpenGL 3.0.
 
 ## Лицензия
 
-MIT — см. [LICENSE](LICENSE). Проект SourceVault не связан с Valve, Microsoft, id Software,
+MIT — см. [LICENSE](LICENSE). Проект VPZip не связан с Valve, Microsoft, id Software,
 Relic Entertainment и Sega.

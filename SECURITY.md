@@ -2,7 +2,7 @@
 
 ## Supported versions
 
-Only the latest released version of SourceVault receives security fixes.
+Only the latest released version of VPZip receives security fixes.
 
 ## Reporting
 

@@ -1,11 +1,11 @@
-//! End-to-end tests for the `sourcevault` CLI binary.
+//! End-to-end tests for the `vpzip` CLI binary.
 
 use std::io::Cursor;
 use std::path::PathBuf;
 use std::process::Command;
 
 fn binary() -> PathBuf {
-    let exe = env!("CARGO_BIN_EXE_sourcevault");
+    let exe = env!("CARGO_BIN_EXE_vpzip");
     PathBuf::from(exe)
 }
 
@@ -19,12 +19,12 @@ fn make_pak(path: &std::path::Path) {
     ];
     let file = std::fs::File::create(path).unwrap();
     let mut writer = std::io::BufWriter::new(file);
-    sourcevault_core::formats::pak::write(&mut writer, entries).unwrap();
+    vpzip_core::formats::pak::write(&mut writer, entries).unwrap();
 }
 
 fn make_vpk(path: &std::path::Path) {
     let mut buf = Vec::new();
-    sourcevault_core::formats::vpk::write_v1(
+    vpzip_core::formats::vpk::write_v1(
         &mut Cursor::new(&mut buf),
         vec![("hello.txt".to_string(), b"world".to_vec())],
     )
@@ -108,7 +108,7 @@ fn tempdir() -> PathBuf {
         .duration_since(std::time::UNIX_EPOCH)
         .unwrap()
         .as_nanos();
-    let dir = std::env::temp_dir().join(format!("sourcevault-it-{id}"));
+    let dir = std::env::temp_dir().join(format!("vpzip-it-{id}"));
     std::fs::create_dir_all(&dir).unwrap();
     dir
 }

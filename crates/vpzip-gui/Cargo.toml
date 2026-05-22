@@ -1,18 +1,18 @@
 [package]
-name = "sourcevault-gui"
+name = "vpzip-gui"
 version.workspace = true
 edition.workspace = true
 authors.workspace = true
 license.workspace = true
 repository.workspace = true
-description = "Graphical interface for SourceVault — a multilingual archiver for Valve Source engine formats."
+description = "Graphical interface for VPZip — a multilingual archiver for Valve Source engine formats."
 
 [[bin]]
-name = "sourcevault-gui"
+name = "vpzip-gui"
 path = "src/main.rs"
 
 [dependencies]
-sourcevault-core = { path = "../sourcevault-core" }
+vpzip-core = { path = "../vpzip-core" }
 anyhow.workspace = true
 log.workspace = true
 env_logger.workspace = true
